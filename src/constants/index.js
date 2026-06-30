@@ -1,6 +1,6 @@
 const navLinks = [
     {
-        name: "Work",
+        name: "PROJECTS",
         link: "#work",
     },
     {
@@ -29,10 +29,10 @@ const words = [
 ];
 
 const counterItems = [
-    { value: 15, suffix: "+", label: "Years of Experience" },
-    { value: 200, suffix: "+", label: "Satisfied Clients" },
-    { value: 108, suffix: "+", label: "Completed Projects" },
-    { value: 90, suffix: "%", label: "Client Retention Rate" },
+    { value: 20, suffix: "+", label: "Technologies / Tools Mastered" },
+    { value: 5, suffix: "+", label: "Hackathons Attended or Certifications Earned" },
+    { value: 5, suffix: "+", label: "Completed Projects" },
+    { value: 500, suffix: "+", label: "Coffee Cups Consumed" },
 ];
 
 const logoIconsList = [

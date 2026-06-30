@@ -470,3 +470,35 @@ section {
 .card:hover::before {
     opacity: 1;
 }
+
+.liquid-glass-nav {
+    --c-glass: #bbbbbc;
+    --c-light: #ffffff;
+    --c-dark: #000000;
+    --glass-reflex-dark: 2;
+    --glass-reflex-light: 0.3;
+    
+    background-color: color-mix(in srgb, var(--c-glass) 12%, transparent);
+    backdrop-filter: blur(8px) url(#liquid-glass) saturate(150%);
+    -webkit-backdrop-filter: blur(8px) saturate(150%);
+    box-shadow: 
+        inset 0 0 0 1px color-mix(in srgb, var(--c-light) 40%, transparent),
+        inset 0 0 0 2px color-mix(in srgb, var(--c-dark) 20%, transparent),
+        inset 0 -4px 4px 1px color-mix(in srgb, var(--c-dark) 40%, transparent),
+        inset 0 4px 4px 1px color-mix(in srgb, var(--c-light) calc(10% * var(--glass-reflex-light)), transparent),
+        inset 0 0 8px 3px color-mix(in srgb, var(--c-dark) 40%, transparent),
+        inset 0 14px 12px 0 color-mix(in srgb, var(--c-light) calc(4% * var(--glass-reflex-light)), transparent),
+        inset 0 -14px 12px 0 color-mix(in srgb, var(--c-dark) calc(20% * var(--glass-reflex-dark)), transparent),
+        0 4px 16px 0 color-mix(in srgb, var(--c-dark) 60%, transparent);
+}
+
+.liquid-glass-active {
+    background-color: color-mix(in srgb, var(--c-light) 12%, transparent);
+    box-shadow: 
+        inset 0 0 0 1px color-mix(in srgb, var(--c-light) 40%, transparent),
+        inset 0 0 0 2px color-mix(in srgb, var(--c-dark) 20%, transparent),
+        inset 0 4px 4px 1px color-mix(in srgb, var(--c-light) calc(10% * var(--glass-reflex-light)), transparent),
+        inset 0 -4px 4px 1px color-mix(in srgb, var(--c-dark) 40%, transparent),
+        0 4px 16px 0 color-mix(in srgb, var(--c-dark) 60%, transparent);
+    border-radius: 999px;
+}
