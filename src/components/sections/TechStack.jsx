@@ -3,6 +3,9 @@ import {techStackIcons} from "../../constants/index.js";
 import TechIcon from "../Models/TechLogos/TechIcon.jsx";
 import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
+import {ScrollTrigger} from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const TechStack = () => {
 
@@ -29,7 +32,7 @@ const TechStack = () => {
 
                 <div className="tech-grid">
                     {techStackIcons.map((icon) => (
-                        <div key={icon.name} className="card-border tech-card overflow-hidden group xl:rounded-full rounded-lg">
+                        <div key={icon.name} className="card-border tech-card relative overflow-hidden group xl:rounded-full rounded-lg">
                             <div className="tech-card-animated-bg" />
                             <div className="tech-card-content">
                                 <div className="tech-icon-wrapper">

@@ -4,7 +4,7 @@ const navLinks = [
         link: "#work",
     },
     {
-        name: "Experience",
+        name: "Education",
         link: "#experience",
     },
     {
@@ -12,8 +12,12 @@ const navLinks = [
         link: "#skills",
     },
     {
-        name: "Testimonials",
-        link: "#testimonials",
+        name: "Technologies",
+        link: "#skills-section",
+    },
+    {
+        name: "Resume",
+        link: "#contact",
     },
 ];
 
@@ -123,7 +127,7 @@ const techStackIcons = [
         name: "Cloud Deployment",
         modelPath: "/models/aws_logo.glb",
         scale: 0.3,
-        rotation: [5, 3, 1],
+        rotation: [0, -2, 6],
     },
     {
         name: "Backend Developer",
@@ -270,6 +274,33 @@ const socialImgs = [
     },
 ];
 
+const skillsData = [
+    {
+        category: "Frontend",
+        skills: ["HTML5", "CSS3", "JavaScript (ES6+)", "TypeScript", "React.js", "Next.js (App Router)", "Tailwind CSS", "Shadcn UI", "React Hooks & Context API", "Responsive Design", "Component-Based Architecture"]
+    },
+    {
+        category: "Backend",
+        skills: ["Node.js", "Express.js", "REST APIs", "MongoDB", "PostgreSQL", "Drizzle ORM", "Authentication & Authorization", "Role-Based Access Control", "Payment Integration (Stripe, Razorpay)"]
+    },
+    {
+        category: "AI / Applied ML",
+        skills: ["Open Router", "LangChain", "Retrieval-Augmented Generation (RAG)", "Prompt Engineering", "Embeddings & Vector Search"]
+    },
+    {
+        category: "Tools & Platforms",
+        skills: ["Git & GitHub", "Vercel", "Docker", "Clerk (Auth)", "ffmpeg(Video Smoothening)", "Redis (Cache Handling)", "Postman",]
+    },
+    {
+        category: "Computer Science",
+        skills: ["Data Structures & Algorithms", "Problem Solving (LeetCode)", "OOP Fundamentals", "DBMS"]
+    },
+    {
+        category: "Professional & Personal",
+        skills: ["Full-Stack Development", "Team Collaboration", "Client-Focused Development", "Rapid Prototyping", "Debugging", "Casual Gaming", "Visual / Product Sense", "Discipline & Consistency"]
+    }
+];
+
 export {
     words,
     abilities,
@@ -282,4 +313,5 @@ export {
     techStackIcons,
     techStackImgs,
     navLinks,
+    skillsData,
 };

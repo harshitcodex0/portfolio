@@ -61,7 +61,7 @@ const Navbar = () => {
             <header
                 className={`liquid-glass-nav fixed left-1/2 -translate-x-1/2 z-[200] transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] flex items-center justify-between gap-4 ${
                     scrolled 
-                        ? "top-6 w-[90vw] max-w-4xl py-3 px-6" 
+                        ? "top-6 w-[90vw] max-w-5xl py-3 px-6" 
                         : "top-4 w-[90vw] max-w-[90vw] py-5 px-8 md:px-12"
                 }`}
                 style={{
@@ -80,13 +80,13 @@ const Navbar = () => {
 
                     {/* Desktop Links — centered */}
                     <nav className="hidden lg:flex flex-1 justify-center">
-                        <ul className="flex items-center gap-9 list-none m-0 p-0">
+                        <ul className="flex items-center gap-3 lg:gap-6 list-none m-0 p-0">
                             {navLinks.map(({ name, link }) => (
                                 <li key={name}>
                                     <a
                                         href={link}
                                         onClick={(e) => handleNavClick(e, link, name)}
-                                        className={`relative text-sm font-medium no-underline transition-all duration-300 px-5 py-2.5 rounded-full ${
+                                        className={`relative text-sm font-medium no-underline transition-all duration-300 px-3 lg:px-4 py-2.5 rounded-full ${
                                             activeLink === name
                                                 ? "liquid-glass-active text-white"
                                                 : "text-white/70 hover:text-white hover:bg-white/5"
