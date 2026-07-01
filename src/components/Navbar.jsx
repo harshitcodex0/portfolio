@@ -103,27 +103,7 @@ const Navbar = () => {
                     <a
                         href="#contact"
                         onClick={(e) => handleNavClick(e, "#contact", "Contact")}
-                        className="hidden lg:inline-flex items-center shrink-0 no-underline"
-                        style={{
-                            padding: "9px 22px",
-                            borderRadius: "999px",
-                            fontSize: "0.875rem",
-                            fontWeight: 600,
-                            color: "#fff",
-                            background: "linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)",
-                            boxShadow: "0 0 0 1px rgba(99,102,241,0.4), 0 4px 16px rgba(59,130,246,0.35)",
-                            transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                            cursor: "pointer",
-                            whiteSpace: "nowrap",
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = "translateY(-1px)";
-                            e.currentTarget.style.boxShadow = "0 0 0 1px rgba(99,102,241,0.7), 0 8px 24px rgba(59,130,246,0.5)";
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = "translateY(0)";
-                            e.currentTarget.style.boxShadow = "0 0 0 1px rgba(99,102,241,0.4), 0 4px 16px rgba(59,130,246,0.35)";
-                        }}
+                        className="hidden lg:inline-flex items-center shrink-0 no-underline px-6 py-2.5 rounded-full text-sm font-semibold text-black bg-white transition-all duration-300 hover:scale-105 hover:bg-gray-200 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] whitespace-nowrap cursor-pointer"
                     >
                         Contact Me
                     </a>
@@ -279,15 +259,7 @@ const Navbar = () => {
                     <a
                         href="#contact"
                         onClick={(e) => handleNavClick(e, "#contact", "Contact")}
-                        className="flex items-center justify-center w-full no-underline font-semibold"
-                        style={{
-                            padding: "13px 22px",
-                            borderRadius: 14,
-                            fontSize: "0.95rem",
-                            color: "#fff",
-                            background: "linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)",
-                            boxShadow: "0 4px 16px rgba(59,130,246,0.35)",
-                        }}
+                        className="flex items-center justify-center w-full no-underline font-semibold text-black bg-white transition-all duration-300 hover:scale-105 hover:bg-gray-200 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] cursor-pointer py-3.5 rounded-xl text-[0.95rem]"
                     >
                         Contact Me
                     </a>
