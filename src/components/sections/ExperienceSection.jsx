@@ -43,6 +43,21 @@ const ExperienceSection = () => {
                 }
             }
         } )
+
+        gsap.utils.toArray('.expText').forEach((text) => {
+
+            gsap.from(text, {
+                xPercent:0,
+                opacity: 0,
+                
+                duration: 1,
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: text,
+                    start: "top 60%"
+                }
+            })
+        })
     }, []);
     
     return (

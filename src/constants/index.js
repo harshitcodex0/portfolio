@@ -120,10 +120,10 @@ const techStackIcons = [
         rotation: [0, 0, 0],
     },
     {
-        name: "Python Developer",
-        modelPath: "/models/python-transformed.glb",
-        scale: 0.8,
-        rotation: [0, 0, 0],
+        name: "Cloud Deployment",
+        modelPath: "/models/aws_logo.glb",
+        scale: 0.3,
+        rotation: [5, 3, 1],
     },
     {
         name: "Backend Developer",
@@ -138,7 +138,7 @@ const techStackIcons = [
         rotation: [0, 0, 0],
     },
     {
-        name: "Project Manager",
+        name: "Project Management",
         modelPath: "/models/git-svg-transformed.glb",
         scale: 0.05,
         rotation: [0, -Math.PI / 4, 0],

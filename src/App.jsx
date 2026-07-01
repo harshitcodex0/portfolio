@@ -4,6 +4,7 @@ import ShowcaseSection from "./components/sections/ShowcaseSection.jsx";
 import LogoSection from "./components/sections/LogoSection.jsx";
 import FeatureCard from "./components/sections/FeatureCard.jsx";
 import ExperienceSection from "./components/sections/ExperienceSection.jsx";
+import TechStack from "./components/sections/TechStack.jsx";
 
 const App = () => {
     return (
@@ -14,6 +15,7 @@ const App = () => {
             <LogoSection/>
             <FeatureCard/>
             <ExperienceSection/>
+            <TechStack/>
         </>
     )
 }
