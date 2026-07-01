@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import { useProgress } from "@react-three/drei";
+import Loader from "./components/Loader.jsx";
 import Hero from './components/sections/Hero.jsx'
 import Navbar from './components/Navbar.jsx'
 import ShowcaseSection from "./components/sections/ShowcaseSection.jsx";
@@ -8,12 +11,34 @@ import TechStack from "./components/sections/TechStack.jsx";
 import SkillsSection from "./components/sections/SkillsSection.jsx";
 import Contact from "./components/sections/Contact.jsx";
 import LiquidButton from "./components/LiquidButton.jsx";
+import Footer from "./components/sections/Footer.jsx";
 
 const App = () => {
+    const { progress } = useProgress();
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        if (progress === 100) {
+            const timer = setTimeout(() => {
+                setIsLoaded(true);
+            }, 1200);
+            return () => clearTimeout(timer);
+        }
+    }, [progress]);
+
+    // Fallback in case 3D models load instantly or something hangs
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoaded(true);
+        }, 4000);
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <>
+            <Loader isLoaded={isLoaded} />
             <Navbar />
-            <Hero/>
+            <Hero isLoaded={isLoaded} />
             <ShowcaseSection/>
             <LogoSection/>
             <FeatureCard/>
@@ -31,6 +56,7 @@ const App = () => {
                 </LiquidButton>
             </div>
             <Contact/>
+            <Footer/>
         </>
     )
 }
