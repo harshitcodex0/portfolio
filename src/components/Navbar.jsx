@@ -5,7 +5,23 @@ const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [activeLink, setActiveLink] = useState("");
+    const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 });
     const menuRef = useRef(null);
+    const navRefs = useRef([]);
+
+    useEffect(() => {
+        const activeIndex = navLinks.findIndex((link) => link.name === activeLink);
+        if (activeIndex !== -1 && navRefs.current[activeIndex]) {
+            const el = navRefs.current[activeIndex];
+            setIndicatorStyle({
+                left: el.offsetLeft,
+                width: el.offsetWidth,
+                opacity: 1,
+            });
+        } else {
+            setIndicatorStyle({ opacity: 0, left: 0, width: 0 });
+        }
+    }, [activeLink]);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -80,16 +96,28 @@ const Navbar = () => {
 
                     {/* Desktop Links — centered */}
                     <nav className="hidden lg:flex flex-1 justify-center">
-                        <ul className="flex items-center gap-3 lg:gap-6 list-none m-0 p-0">
-                            {navLinks.map(({ name, link }) => (
-                                <li key={name}>
+                        <ul className="flex items-center gap-3 lg:gap-6 list-none m-0 p-0 relative">
+                            {/* Sliding Indicator */}
+                            <div 
+                                className="absolute h-full top-0 rounded-full transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] pointer-events-none backdrop-blur-md"
+                                style={{ 
+                                    left: indicatorStyle.left, 
+                                    width: indicatorStyle.width, 
+                                    opacity: indicatorStyle.opacity,
+                                    background: "rgba(255, 255, 255, 0.15)",
+                                    boxShadow: "0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.1)",
+                                    border: "1px solid rgba(255, 255, 255, 0.25)"
+                                }}
+                            />
+                            {navLinks.map(({ name, link }, idx) => (
+                                <li key={name} ref={(el) => (navRefs.current[idx] = el)} className="z-10">
                                     <a
                                         href={link}
                                         onClick={(e) => handleNavClick(e, link, name)}
-                                        className={`relative text-sm font-medium no-underline transition-all duration-300 px-3 lg:px-4 py-2.5 rounded-full ${
+                                        className={`relative inline-block text-sm no-underline transition-all duration-300 px-3 lg:px-4 py-2.5 rounded-full ${
                                             activeLink === name
-                                                ? "liquid-glass-active text-white"
-                                                : "text-white/70 hover:text-white hover:bg-white/5"
+                                                ? "text-white font-bold scale-110 shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+                                                : "font-medium text-white/70 hover:text-white hover:bg-white/5"
                                         }`}
                                     >
                                         {name}
