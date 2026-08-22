@@ -551,3 +551,220 @@ section {
     0% {filter: blur(0px);}
     100% {filter: blur(4px);}
 }
+
+/* ── Project Cards ──────────────────────────────────────────────────────────── */
+
+/**
+ * .project-card — tilt + elevation interaction
+ * -----------------------------------------------
+ * CSS vars --rx / --ry are set each frame by the RAF handler in ProjectCard.jsx.
+ * The perspective() call in transform creates the depth illusion.
+ *
+ * Two-state transition strategy:
+ *   base (.project-card)         → transition ON  (spring the card back to flat
+ *                                                   when pointer leaves)
+ *   active (.project-card.is-hovering) → transition OFF for transform
+ *                                         (tilt must feel instantaneous to the
+ *                                          pointer; lag here feels wrong)
+ */
+.project-card {
+    /* Initial tilt state — reset values */
+    --rx: 0deg;
+    --ry: 0deg;
+
+    height: 100%;
+    background-color: #0e0e10;
+
+    /* perspective() per-element — no transform-style:preserve-3d needed,
+       so overflow:hidden continues to work correctly on all browsers. */
+    transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+
+    /* Spring-back easing: snappy in, slow gentle release.
+       Only transform needs the special easing; bg/shadow use linear ease. */
+    transition:
+        transform 0.55s cubic-bezier(0.23, 1, 0.32, 1),
+        box-shadow 0.4s ease,
+        background-color 0.4s ease;
+}
+
+/* CSS :hover keeps the background shift as a no-JS fallback */
+.project-card:hover {
+    background-color: #111116;
+}
+
+/* Active hover state — class toggled by onMouseEnter / onMouseLeave in JS */
+.project-card.is-hovering {
+    background-color: #111116;
+
+    /* Suppress transform transition so tilt tracks the pointer instantly.
+       box-shadow and background-color still animate. */
+    transition: box-shadow 0.4s ease, background-color 0.4s ease;
+
+    /* Promote to compositor layer only while actively animating —
+       avoids permanent memory overhead on static cards. */
+    will-change: transform;
+
+    /* Soft neutral elevation — no coloured glow, just depth.
+       Three layers: ambient shadow, key shadow, thin white inner border. */
+    box-shadow:
+        0 24px 60px -8px rgba(0, 0, 0, 0.55),
+        0 8px 20px -8px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Respect user preference — disable all transform on reduced-motion systems.
+   The edge-highlight and background transitions are kept; they are non-motion. */
+@media (prefers-reduced-motion: reduce) {
+    .project-card,
+    .project-card.is-hovering {
+        transform: none !important;
+        will-change: auto !important;
+        transition: background-color 0.4s ease, box-shadow 0.4s ease !important;
+    }
+}
+
+/* Border-radius correction for the conic glow arc.
+   The global .card::before uses border-radius:12px (rounded-xl) which visually
+   misaligns with the project card's rounded-2xl corners (16px / 1rem).
+   This scoped override brings the arc flush with the actual card shape
+   without touching .card::before which is shared by GlowCard and SkillsSection. */
+.project-card::before {
+    border-radius: 16px;
+}
+
+/**
+ * .project-card-img-wrapper
+ * Fixed-aspect image container so cards stay consistent regardless of the
+ * actual image dimensions.  The xl:col-span-2 featured card gets extra height
+ * via the sibling selector below.
+ */
+.project-card-img-wrapper {
+    position: relative;
+    width: 100%;
+    /* Default (secondary card): 16:9 ratio */
+    height: 220px;
+    overflow: hidden;
+}
+
+/* Mobile: slightly shorter to conserve scroll space */
+@media (max-width: 767px) {
+    .project-card-img-wrapper {
+        height: 200px;
+    }
+}
+
+/* Tablet+ secondary card */
+@media (min-width: 768px) {
+    .project-card-img-wrapper {
+        height: 240px;
+    }
+}
+
+/* Desktop featured card (xl col-span-2): taller for visual prominence */
+@media (min-width: 1280px) {
+    [class*="xl:col-span-2"] .project-card-img-wrapper {
+        height: 360px;
+    }
+}
+
+/* GitHub action button — extra specificity guard so form a{} rule doesn't
+   override the colour we set on this element in ProjectCard.jsx */
+.project-card-github-btn {
+    color: #d9ecff; /* white-50 */
+    background: transparent;
+    text-decoration: none;
+}
+.project-card-github-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+    text-decoration: none;
+}
+
+/* ── Custom Pointer System ────────────────────────────────────────────────── */
+
+/* Only hide default cursor and show custom cursor on devices with fine pointer (mouse/trackpad) */
+@media (pointer: fine) {
+    /* Hide native cursor globally.
+       We specifically target interactive elements to ensure no default pointer overrides it. */
+    body, a, button, input, textarea, select, [role="button"], [tabindex] {
+        cursor: none !important;
+    }
+
+    .custom-cursor-container {
+        display: block;
+    }
+}
+
+/* On touch devices or devices without hover, ensure the custom cursor never mounts visually */
+@media (pointer: coarse), (hover: none) {
+    .custom-cursor-container {
+        display: none !important;
+    }
+}
+
+.custom-cursor-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 100000; /* Ensure it floats above absolutely everything */
+}
+
+/* Base positioning for both layers */
+.custom-cursor-dot, 
+.custom-cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    opacity: 0; /* Hidden initially until mouse moves */
+    transition: opacity 0.3s ease;
+}
+
+/* Layer 1: The precision dot */
+.custom-cursor-dot .inner {
+    width: 5px;
+    height: 5px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    /* Snappy transition for scaling */
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.2s ease;
+}
+
+/* Layer 2: The subtle inertia ring */
+.custom-cursor-ring .inner {
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                background-color 0.3s ease, 
+                border-color 0.3s ease;
+}
+
+/* ── Interactive States ── */
+
+/* When hovering links, buttons, or project cards */
+.custom-cursor-dot.is-active .inner {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0.5;
+}
+
+.custom-cursor-ring.is-active .inner {
+    transform: translate(-50%, -50%) scale(1.4);
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Respect user preferences */
+@media (prefers-reduced-motion: reduce) {
+    .custom-cursor-dot .inner,
+    .custom-cursor-ring .inner {
+        transition: opacity 0.2s ease !important;
+        transform: translate(-50%, -50%) !important; /* Disable scaling animation */
+    }
+}

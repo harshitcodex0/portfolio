@@ -1,5 +1,5 @@
-import React from 'react'
-import TitleHeader from "../HeroModels/TitleHeader.jsx";
+
+import TitleHeader from '../TitleHeader.jsx';
 import {expCards} from "../../constants/index.js";
 import GlassButton from "../GlassButton.jsx";
 import GlowCard from "../GlowCard.jsx";

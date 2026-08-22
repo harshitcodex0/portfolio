@@ -1,11 +1,11 @@
 import { useRef } from "react";
-import TitleHeader from "../HeroModels/TitleHeader.jsx";
+import TitleHeader from '../TitleHeader.jsx';
 import { skillsData } from "../../constants/index.js";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import GlassButton from "../GlassButton.jsx";
-import LiquidButton from "../LiquidButton.jsx";
+// import LiquidButton from "../LiquidButton.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 

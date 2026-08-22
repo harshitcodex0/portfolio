@@ -1,13 +1,9 @@
 import {words} from '../../constants/index.js'
 import Button from '../../components/Button.jsx'
-import HeroExperience from '../../components/HeroModels/HeroExperience.jsx'
+import SolarSystem from '../../components/SolarSystem.jsx'
 import AnimatedCounter from '../../components/AnimatedCounter.jsx'
 import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
-
-
-
-
 
 const Hero = ({ isLoaded }) => {
 
@@ -66,10 +62,10 @@ const Hero = ({ isLoaded }) => {
                 </header>
             
 
-            {/* Implemented 3D Model */}
-            <figure className="pointer-events-auto">
-                <div className="hero-3d-layout">
-                <HeroExperience/>
+            {/* Implemented Lightweight Monochrome Solar System Visual */}
+            <figure className="pointer-events-auto w-full h-full min-h-[50vh] flex items-center justify-center">
+                <div className="w-full h-full max-w-lg mx-auto">
+                    <SolarSystem/>
                 </div>
             </figure>
             </div>

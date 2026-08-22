@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { counterItems } from "../constants/index.js";
 
 const CountUp = ({ end, duration = 2000, suffix = "" }) => {

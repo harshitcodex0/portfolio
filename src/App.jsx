@@ -1,41 +1,35 @@
 import { useState, useEffect } from "react";
-import { useProgress } from "@react-three/drei";
 import Loader from "./components/Loader.jsx";
+import CustomCursor from "./components/CustomCursor.jsx";
+import AmbientParticles from "./components/AmbientParticles.jsx";
 import Hero from './components/sections/Hero.jsx'
 import Navbar from './components/Navbar.jsx'
 import ShowcaseSection from "./components/sections/ShowcaseSection.jsx";
 import LogoSection from "./components/sections/LogoSection.jsx";
 import FeatureCard from "./components/sections/FeatureCard.jsx";
 import ExperienceSection from "./components/sections/ExperienceSection.jsx";
-import TechStack from "./components/sections/TechStack.jsx";
 import SkillsSection from "./components/sections/SkillsSection.jsx";
 import Contact from "./components/sections/Contact.jsx";
 import LiquidButton from "./components/LiquidButton.jsx";
 import Footer from "./components/sections/Footer.jsx";
 
 const App = () => {
-    const { progress } = useProgress();
     const [isLoaded, setIsLoaded] = useState(false);
 
-    useEffect(() => {
-        if (progress === 100) {
-            const timer = setTimeout(() => {
-                setIsLoaded(true);
-            }, 1200);
-            return () => clearTimeout(timer);
-        }
-    }, [progress]);
-
-    // Fallback in case 3D models load instantly or something hangs
+    // Since we've removed heavy 3D models, we no longer need to track WebGL asset loading.
+    // We simply use a short artificial delay to allow fonts and initial layout to settle
+    // before animating in the hero section.
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsLoaded(true);
-        }, 4000);
+        }, 1200);
         return () => clearTimeout(timer);
     }, []);
 
     return (
         <>
+            <CustomCursor />
+            <AmbientParticles />
             <Loader isLoaded={isLoaded} />
             <Navbar />
             <Hero isLoaded={isLoaded} />
@@ -43,7 +37,6 @@ const App = () => {
             <LogoSection/>
             <FeatureCard/>
             <ExperienceSection/>
-            <TechStack/>
             <SkillsSection/>
             <div className="flex justify-center items-center py-10  w-full">
                 <LiquidButton 
