@@ -6,7 +6,6 @@ import Hero from './components/sections/Hero.jsx'
 import Navbar from './components/Navbar.jsx'
 import ShowcaseSection from "./components/sections/ShowcaseSection.jsx";
 import LogoSection from "./components/sections/LogoSection.jsx";
-import FeatureCard from "./components/sections/FeatureCard.jsx";
 import ExperienceSection from "./components/sections/ExperienceSection.jsx";
 import SkillsSection from "./components/sections/SkillsSection.jsx";
 import Contact from "./components/sections/Contact.jsx";
@@ -35,7 +34,6 @@ const App = () => {
             <Hero isLoaded={isLoaded} />
             <ShowcaseSection/>
             <LogoSection/>
-            <FeatureCard/>
             <ExperienceSection/>
             <SkillsSection/>
             <div className="flex justify-center items-center py-10  w-full">

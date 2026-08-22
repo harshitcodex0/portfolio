@@ -82,6 +82,8 @@ const Navbar = () => {
                 }`}
                 style={{
                     borderRadius: "999px",
+                    backdropFilter: "blur(8px) url(#liquid-glass) saturate(150%)",
+                    WebkitBackdropFilter: "blur(8px) saturate(150%)",
                 }}
             >
                     {/* Logo */}
