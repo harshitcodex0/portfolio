@@ -45,6 +45,7 @@ const SolarSystem = () => {
                 ref={svgRef}
                 viewBox="0 0 800 800" 
                 className="w-full max-w-2xl h-auto opacity-80 transition-transform duration-1000 ease-out hover:scale-[1.02]"
+                aria-hidden="true"
             >
                 <defs>
                     <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">

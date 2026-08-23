@@ -1,5 +1,12 @@
 import { useEffect, useRef } from "react";
 
+const techWords = [
+    'React', 'TypeScript', 'JavaScript', 'Node.js', 'Python', 'C++', 'Java', 
+    'MongoDB', 'Redis', 'AWS', 'Docker', 'Git', 'GitHub', 'Next.js', 'Tailwind', 
+    'AI', 'Machine Learning', 'Algorithms', 'APIs', 'REST', 'Web Development', 
+    'Cloud', 'System Design'
+];
+
 const AmbientParticles = () => {
     const canvasRef = useRef(null);
     const mouse = useRef({ x: -1000, y: -1000 });
@@ -13,6 +20,7 @@ const AmbientParticles = () => {
         
         let animationFrameId;
         let particles = [];
+        let wordObjects = [];
         let dpr = window.devicePixelRatio || 1;
         let width, height;
         let lastScrollY = window.scrollY;
@@ -35,26 +43,54 @@ const AmbientParticles = () => {
             ctx.scale(dpr, dpr);
 
             // Richer atmospheric density without overwhelming GPU
-            let count = 250; // High-end / Desktop
-            if (width < 768) count = 70; // Mobile
-            else if (width < 1024) count = 120; // Tablet
+            let count = 150; // High-end / Desktop
+            let wordCount = 12; // High-end / Desktop
+            
+            if (width < 768) {
+                count = 50; // Mobile
+                wordCount = 4;
+            } else if (width < 1024) {
+                count = 90; // Tablet
+                wordCount = 7;
+            }
 
             particles = [];
             for (let i = 0; i < count; i++) {
                 const isLarge = Math.random() > 0.95; // 5% chance of being a large out-of-focus particle
-                const size = isLarge ? Math.random() * 3 + 2 : Math.random() * 1.2 + 0.3;
-                const alpha = isLarge ? Math.random() * 0.15 + 0.05 : Math.random() * 0.4 + 0.1;
+                const isPurple = Math.random() > 0.85; // 15% chance of being purple accent
+                const size = isLarge ? Math.random() * 2.5 + 1.5 : Math.random() * 1.2 + 0.3;
+                const alpha = isLarge ? Math.random() * 0.15 + 0.05 : Math.random() * 0.3 + 0.1;
                 const parallaxFactor = isLarge ? Math.random() * 0.8 + 0.5 : Math.random() * 0.4 + 0.1;
 
                 particles.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
                     size,
-                    speedX: (Math.random() - 0.5) * (isLarge ? 0.3 : 0.15),
-                    speedY: (Math.random() - 0.5) * (isLarge ? 0.3 : 0.15),
+                    speedX: (Math.random() - 0.5) * (isLarge ? 0.2 : 0.1),
+                    speedY: (Math.random() - 0.5) * (isLarge ? 0.2 : 0.1),
                     alpha,
                     parallaxFactor,
-                    isLarge
+                    isLarge,
+                    isPurple
+                });
+            }
+
+            wordObjects = [];
+            for (let i = 0; i < wordCount; i++) {
+                const text = techWords[Math.floor(Math.random() * techWords.length)];
+                const fontSize = Math.random() * 10 + 12; // 12 to 22px
+                const alpha = Math.random() * 0.03 + 0.01; // extremely subtle: 0.01 to 0.04
+                const parallaxFactor = Math.random() * 0.2 + 0.05;
+                
+                wordObjects.push({
+                    text,
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    fontSize,
+                    speedX: (Math.random() - 0.5) * 0.05,
+                    speedY: (Math.random() - 0.5) * 0.05,
+                    alpha,
+                    parallaxFactor
                 });
             }
         };
@@ -130,15 +166,43 @@ const AmbientParticles = () => {
 
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+                
+                if (p.isPurple) {
+                    ctx.fillStyle = `rgba(168, 85, 247, ${p.alpha})`; // Purple accent
+                } else {
+                    ctx.fillStyle = `rgba(161, 161, 170, ${p.alpha})`; // Zinc-400
+                }
+                
                 if (p.isLarge) {
-                    // Slight glow for large particles, minimal performance hit since few exist
                     ctx.shadowBlur = 10;
-                    ctx.shadowColor = `rgba(255,255,255, ${p.alpha})`;
+                    ctx.shadowColor = p.isPurple ? `rgba(168, 85, 247, ${p.alpha})` : `rgba(161, 161, 170, ${p.alpha})`;
                 } else {
                     ctx.shadowBlur = 0;
                 }
                 ctx.fill();
+            }
+
+            // Render Words
+            ctx.shadowBlur = 0;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            for (let i = 0; i < wordObjects.length; i++) {
+                const w = wordObjects[i];
+                if (!isReducedMotion.current) {
+                    w.x += w.speedX;
+                    w.y += w.speedY;
+                    w.y -= deltaScroll * w.parallaxFactor;
+
+                    if (w.x < -100) w.x = width + 100;
+                    if (w.x > width + 100) w.x = -100;
+                    if (w.y < -100) w.y = height + 100;
+                    if (w.y > height + 100) w.y = -100;
+                }
+                
+                ctx.font = `${w.fontSize}px Inter, sans-serif`;
+                ctx.fillStyle = `rgba(212, 212, 216, ${w.alpha})`; // zinc-300
+                ctx.fillText(w.text, w.x, w.y);
             }
 
             // reset shadow for next frame clearance

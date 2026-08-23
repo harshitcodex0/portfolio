@@ -1,18 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
 :root {
     --gradient: radial-gradient(circle, #e5e5e5 0%, #fff 100%);
+    --bg-base: #09090b; /* zinc-950 */
+    
+    /* Neon Purple Accent */
+    --color-neon-purple: #a855f7; /* purple-500 */
+    --color-neon-purple-dark: #7e22ce; /* purple-700 */
 }
 
 html,
 body {
     width: 100dvw;
     overflow-x: hidden;
-    background-color: black;
+    background-color: var(--bg-base);
     color: white;
     scroll-behavior: smooth;
-    font-family: "Mona Sans", sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
 section {
@@ -20,7 +25,9 @@ section {
 }
 
 @theme {
-    --font-sans: "Mona Sans", sans-serif;
+    --font-sans: "Inter", sans-serif;
+    --color-accent: var(--color-neon-purple);
+    --color-accent-dark: var(--color-neon-purple-dark);
     --color-white-50: #d9ecff;
     --color-black-50: #1c1c21;
     --color-black-100: #0e0e10;
@@ -39,6 +46,20 @@ section {
 }
 
 @layer components {
+    /* Glassmorphism System */
+    .glass-1 {
+        @apply bg-zinc-900/30 border border-white/5 backdrop-blur-[2px];
+    }
+
+    .glass-2 {
+        @apply bg-zinc-900/60 border border-white/10 backdrop-blur-md shadow-lg;
+    }
+
+    .glass-3 {
+        @apply bg-zinc-950/80 border border-white/15 backdrop-blur-xl shadow-2xl;
+        box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7), 0 0 20px -5px rgba(168, 85, 247, 0.15);
+    }
+
     .padding-x {
         @apply px-5 md:px-10;
     }
@@ -278,48 +299,7 @@ section {
         @apply flex justify-center items-center w-52 h-60 relative;
     }
 
-    form {
-        label {
-            @apply block text-white-50 mb-2;
-        }
 
-        input,
-        textarea {
-            @apply w-full px-4 py-4 md:text-base text-sm placeholder:text-blue-50 bg-blue-100 rounded-md;
-        }
-
-        a {
-            @apply w-full py-4 bg-white text-black font-semibold rounded-md flex justify-center items-center gap-2;
-
-            img {
-                @apply inline-block;
-            }
-        }
-    }
-
-    .footer {
-        @apply my-10 md:mt-20 mt-10 text-white-50 px-5 md:px-20 xl:px-20 flex items-center justify-center;
-
-        .footer-container {
-            @apply grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-0 w-full;
-        }
-
-        p {
-            @apply text-center md:text-start;
-        }
-
-        .socials {
-            @apply flex items-center justify-center gap-5;
-
-            .icon {
-                @apply border border-black-50 bg-black-100 flex justify-center items-center rounded-xl size-10 md:size-12 cursor-pointer transition-all duration-500 hover:bg-black-50;
-            }
-
-            img {
-                @apply inline-block;
-            }
-        }
-    }
 }
 
 /* Hero text slider starts */
@@ -765,4 +745,11 @@ section {
         transition: opacity 0.2s ease !important;
         transform: translate(-50%, -50%) !important; /* Disable scaling animation */
     }
-}
+
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}@media (min-width: 768px) { .desktop-stack-height { height: var(--stack-height); } }

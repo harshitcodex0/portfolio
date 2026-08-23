@@ -9,7 +9,6 @@ import LogoSection from "./components/sections/LogoSection.jsx";
 import ExperienceSection from "./components/sections/ExperienceSection.jsx";
 import SkillsSection from "./components/sections/SkillsSection.jsx";
 import Contact from "./components/sections/Contact.jsx";
-import LiquidButton from "./components/LiquidButton.jsx";
 import Footer from "./components/sections/Footer.jsx";
 
 const App = () => {
@@ -36,15 +35,16 @@ const App = () => {
             <LogoSection/>
             <ExperienceSection/>
             <SkillsSection/>
-            <div className="flex justify-center items-center py-10  w-full">
-                <LiquidButton 
+            <div className="flex justify-center items-center py-20 w-full relative z-10">
+                <a 
                     href="https://docs.google.com/document/d/1V-X8nuFYuCm5Cg-mY8dW4XNp_6tVJ8Ix/edit?usp=drive_link&ouid=102257691683634290526&rtpof=true&sd=true" 
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:!bg-white hover:!text-black active:!scale-110 !px-10 !py-4 text-xl font-bold"
+                    className="flex items-center gap-3 px-12 py-5 rounded-full glass-2 text-white font-bold text-lg md:text-xl transition-all duration-300 hover:scale-105 hover:bg-white/10 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] hover:border-[var(--color-accent)]/50 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
-                    Resume
-                </LiquidButton>
+                    View Resume
+                    <svg aria-hidden="true" className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
             </div>
             <Contact/>
             <Footer/>

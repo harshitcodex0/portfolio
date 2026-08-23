@@ -17,7 +17,6 @@ export {
   words,
   counterItems,
   logoIconsList,
-  abilities,
   techStackImgs,
   techStackIcons,
   expCards,

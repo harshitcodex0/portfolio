@@ -36,7 +36,7 @@ import { useRef, useCallback, useEffect } from "react";
 // Maximum tilt in degrees — 6° is restrained; feels premium without game-UI feel.
 const MAX_TILT_DEG = 6;
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, isLarge = false }) => {
   const cardRef  = useRef(null);
   const rafId    = useRef(null);
   // Cached bounding rect — populated on mouseenter, cleared on mouseleave.
@@ -116,7 +116,7 @@ const ProjectCard = ({ project }) => {
     e.stopPropagation();
   }, []);
 
-  const { title, description, technologies, imagePath, githubUrl, liveUrl } = project;
+  const { title, description, technologies = [], imagePath, githubUrl, liveUrl } = project;
   const hasLiveUrl = Boolean(liveUrl);
 
   return (
@@ -125,45 +125,45 @@ const ProjectCard = ({ project }) => {
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="project-card card card-border rounded-2xl overflow-hidden flex flex-col group"
+      className={`project-card card glass-3 rounded-3xl overflow-hidden flex flex-col ${isLarge ? 'lg:flex-row' : ''} group w-full h-full relative shadow-[0_10px_40px_rgba(0,0,0,0.5)] border border-white/10`}
       aria-label={title}
     >
-      {/* Pointer-glow overlay — existing .glow class, no changes */}
+      {/* Pointer-glow overlay */}
       <div className="glow" aria-hidden="true" />
 
-      {/* ── Image ────────────────────────────────────────────────────────── */}
-      {hasLiveUrl ? (
-        <a
-          href={liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block relative overflow-hidden project-card-img-wrapper
-                     focus-visible:outline-none focus-visible:ring-2
-                     focus-visible:ring-white/60 focus-visible:ring-offset-2
-                     focus-visible:ring-offset-black rounded-t-2xl"
-          aria-label={`Visit ${title} live site`}
-        >
-          <ImageBlock imagePath={imagePath} title={title} />
-        </a>
-      ) : (
-        <div className="relative overflow-hidden project-card-img-wrapper">
-          <ImageBlock imagePath={imagePath} title={title} />
-        </div>
-      )}
-
-      {/* ── Body ─────────────────────────────────────────────────────────── */}
-      <div className="flex flex-col flex-1 gap-4 p-6 relative z-10">
-
-        {/* Title */}
-        <h3 className="text-xl md:text-2xl font-bold text-white leading-snug">
+      {/* ── Image Column ────────────────────────────────────────────────────────── */}
+      <div className={`w-full ${isLarge ? 'lg:w-[45%] p-5 md:p-6 lg:pr-0' : 'p-5 md:p-6 pb-0'}`}>
+        <div className={`relative overflow-hidden w-full h-full min-h-[220px] ${isLarge ? 'lg:min-h-full' : 'aspect-video'} rounded-2xl border border-white/5 bg-black/50`}>
           {hasLiveUrl ? (
             <a
               href={liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white/70 transition-colors duration-200
-                         focus-visible:outline-none focus-visible:underline"
-              tabIndex={-1}     // primary live-site entry is the image link above
+              className="block w-full h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              aria-label={`Visit ${title} live site`}
+            >
+              <ImageBlock imagePath={imagePath} title={title} />
+            </a>
+          ) : (
+            <div className="w-full h-full">
+              <ImageBlock imagePath={imagePath} title={title} />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* ── Body Column ─────────────────────────────────────────────────────────── */}
+      <div className={`flex flex-col flex-1 gap-5 p-6 md:p-8 relative z-10 w-full ${isLarge ? 'lg:w-[55%]' : ''}`}>
+
+        {/* Title */}
+        <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight leading-snug drop-shadow-md">
+          {hasLiveUrl ? (
+            <a
+              href={liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[var(--color-accent)] transition-colors duration-200 focus-visible:outline-none focus-visible:underline"
+              tabIndex={-1}
               aria-hidden="true"
             >
               {title}
@@ -174,20 +174,20 @@ const ProjectCard = ({ project }) => {
         </h3>
 
         {/* Description */}
-        <p className="text-white-50 text-sm md:text-base leading-relaxed flex-1">
+        <p className="text-zinc-400 text-sm md:text-base leading-relaxed font-light">
           {description}
         </p>
 
         {/* Technology tags */}
         {technologies.length > 0 && (
-          <ul className="flex flex-wrap gap-2" aria-label="Technologies used">
+          <ul className="flex flex-wrap gap-2 mt-1" aria-label="Technologies used">
             {technologies.map((tech) => (
               <li
                 key={tech}
-                className="px-3 py-1 rounded-full border border-white/10 text-white-50
-                           text-xs font-medium select-none
-                           transition-[colors,border-color,background-color] duration-200
-                           hover:border-white/30 hover:text-white hover:bg-white/5"
+                className="px-3 py-1 rounded-md border border-white/10 text-zinc-300
+                           text-xs font-medium select-none bg-white/5 backdrop-blur-sm
+                           transition-colors duration-300
+                           hover:border-[var(--color-accent)]/30 hover:text-white hover:bg-[var(--color-accent)]/10"
               >
                 {tech}
               </li>
@@ -196,67 +196,50 @@ const ProjectCard = ({ project }) => {
         )}
 
         {/* ── Action row ───────────────────────────────────────────────────── */}
-        <div className="flex items-center gap-3 pt-2 mt-auto">
-
-          {/*
-            GitHub link — always rendered, always an independent keyboard target.
-            e.stopPropagation() on onClick ensures clicking this never triggers
-            any ancestor live-site link (present when hasLiveUrl is true).
-          */}
+        <div className="flex flex-wrap items-center gap-3 pt-4 mt-auto">
+          {/* GitHub link */}
           <a
             href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleGithubClick}
-            className="project-card-github-btn
-                       flex items-center gap-2 px-4 py-2 rounded-full
-                       border border-white/20 text-sm font-medium
-                       transition-[colors,border-color,background-color,transform] duration-300
-                       hover:border-white/60 hover:bg-white/5
+            className="flex items-center gap-2 px-4 py-2 rounded-full
+                       bg-white/5 border border-white/10 text-sm font-medium text-zinc-200
+                       transition-all duration-300 backdrop-blur-md
+                       hover:bg-white/10 hover:border-white/20 hover:text-white hover:-translate-y-0.5 hover:shadow-[0_4px_15px_rgba(0,0,0,0.5)]
                        focus-visible:outline-none focus-visible:ring-2
-                       focus-visible:ring-white/60 focus-visible:ring-offset-2
+                       focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2
                        focus-visible:ring-offset-black
                        active:scale-95"
             aria-label={`View ${title} source code on GitHub`}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="w-4 h-4 shrink-0"
-              aria-hidden="true"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 shrink-0 transition-transform group-hover:scale-110" aria-hidden="true">
               <path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.185 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.202 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482C19.138 20.203 22 16.447 22 12.021 22 6.484 17.522 2 12 2z" />
             </svg>
-            GitHub
+            Code
           </a>
 
-          {/* Live site pill — conditional on liveUrl being set */}
+          {/* Live site pill */}
           {hasLiveUrl && (
             <a
               href={liveUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 rounded-full
-                         bg-white text-black text-sm font-semibold
-                         transition-[background-color,transform] duration-300
-                         hover:bg-white/80 active:scale-95
+                         bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/30 text-sm font-medium text-[var(--color-accent)]
+                         transition-all duration-300 backdrop-blur-md
+                         hover:bg-[var(--color-accent)] hover:text-white hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(168,85,247,0.4)]
                          focus-visible:outline-none focus-visible:ring-2
-                         focus-visible:ring-white focus-visible:ring-offset-2
-                         focus-visible:ring-offset-black"
+                         focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2
+                         focus-visible:ring-offset-black
+                         active:scale-95"
               aria-label={`Open ${title} live site`}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="w-3.5 h-3.5 shrink-0"
-                aria-hidden="true"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-3.5 h-3.5 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true">
                 <path fillRule="evenodd" d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z" clipRule="evenodd" />
                 <path fillRule="evenodd" d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z" clipRule="evenodd" />
               </svg>
-              Live
+              Live Site
             </a>
           )}
         </div>
@@ -265,21 +248,17 @@ const ProjectCard = ({ project }) => {
   );
 };
 
-/** Inner image block — shared between linked and non-linked wrappers */
 const ImageBlock = ({ imagePath, title }) => (
-  <div className="project-card-img-wrapper">
+  <div className="w-full h-full relative">
     <img
       src={imagePath}
       alt={`${title} preview`}
-      className="w-full h-full object-cover
-                 transition-transform duration-500 ease-out
-                 group-hover:scale-105"
+      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
       loading="lazy"
     />
-    {/* Bottom gradient fade — separates image from text body */}
+    {/* Bottom gradient fade — separates image from text body on some themes, subtle here */}
     <div
-      className="absolute inset-x-0 bottom-0 h-16
-                  bg-gradient-to-t from-black-100 to-transparent pointer-events-none"
+      className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-zinc-950/80 to-transparent pointer-events-none"
       aria-hidden="true"
     />
   </div>

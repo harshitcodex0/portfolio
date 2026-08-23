@@ -45,6 +45,7 @@ const ContactVisual = () => {
                 ref={svgRef}
                 viewBox="0 0 600 600" 
                 className="w-full max-w-md h-auto opacity-90 transition-transform duration-700 ease-out hover:scale-105 hover:rotate-1"
+                aria-hidden="true"
             >
                 <defs>
                     <linearGradient id="mailGlow" x1="0%" y1="0%" x2="100%" y2="100%">

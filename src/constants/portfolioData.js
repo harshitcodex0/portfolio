@@ -65,8 +65,8 @@ export const PROJECTS = [
       "A liquor and cocktail discovery platform where users can explore premium spirits, learn how to craft classic cocktails, and create their own unique cocktail recipes.",
     technologies: ["React", "Node.js", "MongoDB", "Tailwind CSS", "Express.js"],
     imagePath: "/images/project1.png",
-    githubUrl: "https://github.com/harshitcodex0",   // <- replace with exact repo URL
-    liveUrl: null,                                    // <- add when deployed
+    githubUrl: "https://github.com/harshitcodex0/the-crafted-pour",   // <- replace with exact repo URL
+    liveUrl: "https://the-crafted-pour.vercel.app/",                                    // <- add when deployed
   },
   {
     id: 2,
@@ -75,12 +75,12 @@ export const PROJECTS = [
       "A full-stack student result management system that allows institutions to publish results and students to securely view their academic performance.",
     technologies: ["React", "Node.js", "MongoDB", "Express.js", "Tailwind CSS"],
     imagePath: "/images/project2.png",
-    githubUrl: "https://github.com/harshitcodex0",   // <- replace with exact repo URL
-    liveUrl: null,
+    githubUrl: "https://github.com/harshitcodex0/result-portal",   // <- replace with exact repo URL
+    liveUrl: "https://result-portal-tau.vercel.app/",
   },
   {
     id: 3,
-    title: "Project Three",                          // <- update title when ready
+    title: "ZenCode",                          // <- update title when ready
     description:
       "Coming soon — placeholder for the third showcase project.",
     technologies: [],
@@ -123,12 +123,12 @@ export const SKILLS = {
       "REST APIs",
       "MongoDB",
       "PostgreSQL",
-      "Drizzle ORM",
+      "Prisma ORM",
       "Authentication & Authorization",
       "Role-Based Access Control",
       "Payment Integration (Stripe, Razorpay)",
-      "AWS (S3, Lambda, EC2)",
-      "Appwrite (BaaS - Auth, DB, Storage)",
+      "AWS (S3, EC2)",
+      
     ],
   },
 
@@ -249,26 +249,7 @@ export const logoIconsList = [
   { imgPath: "/images/logos/company-logo-11.png" },
 ];
 
-// -----------------------------------------------------------------------------
-//  ABILITIES / FEATURE CARDS
-// -----------------------------------------------------------------------------
-export const abilities = [
-  {
-    imgPath: "/images/seo.png",
-    title: "Quality Focus",
-    desc: "Delivering high-quality results while maintaining attention to every detail.",
-  },
-  {
-    imgPath: "/images/chat.png",
-    title: "Reliable Communication",
-    desc: "Keeping you updated at every step to ensure transparency and clarity.",
-  },
-  {
-    imgPath: "/images/time.png",
-    title: "On-Time Delivery",
-    desc: "Making sure projects are completed on schedule, with quality & attention to detail.",
-  },
-];
+
 
 // -----------------------------------------------------------------------------
 //  TECH STACK (2-D image carousel)
