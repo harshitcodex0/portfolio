@@ -8,7 +8,7 @@ const Footer = () => {
                 
                 <div className="flex-1 flex justify-center md:justify-start">
                     <a href="/" className="text-zinc-400 hover:text-[var(--color-accent)] transition-colors duration-300 font-medium rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]">
-                        Visit my Blog
+                        HARSHIT
                     </a>
                 </div>
 
