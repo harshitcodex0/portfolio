@@ -35,7 +35,7 @@ const App = () => {
             <LogoSection/>
             <ExperienceSection/>
             <SkillsSection/>
-            <div className="flex justify-center items-center py-20 w-full relative z-10">
+            <div id="resume" className="flex justify-center items-center py-20 w-full relative z-10">
                 <a 
                     href="https://docs.google.com/document/d/1V-X8nuFYuCm5Cg-mY8dW4XNp_6tVJ8Ix/edit?usp=drive_link&ouid=102257691683634290526&rtpof=true&sd=true" 
                     target="_blank"

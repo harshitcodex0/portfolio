@@ -205,7 +205,7 @@ export const navLinks = [
   { name: "PROJECTS",    link: "#work" },
   { name: "Education",   link: "#experience" },
   { name: "Skills",      link: "#skills-section" },
-  { name: "Resume",      link: "#contact" },
+  { name: "Resume",      link: "#resume" },
 ];
 
 // -----------------------------------------------------------------------------
