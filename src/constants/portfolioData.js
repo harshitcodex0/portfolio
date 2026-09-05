@@ -63,29 +63,29 @@ export const PROJECTS = [
     title: "The Crafted Pour",
     description:
       "A liquor and cocktail discovery platform where users can explore premium spirits, learn how to craft classic cocktails, and create their own unique cocktail recipes.",
-    technologies: ["React", "Node.js", "MongoDB", "Tailwind CSS", "Express.js"],
+    technologies: ["React", "Node.js", "ffmpeg(Video Smoothening)", "Tailwind CSS","GSAP"],
     imagePath: "/images/project1.png",
-    githubUrl: "https://github.com/harshitcodex0/the-crafted-pour",   // <- replace with exact repo URL
-    liveUrl: "https://the-crafted-pour.vercel.app/",                                    // <- add when deployed
+    githubUrl: "https://github.com/harshitcodex0/the-crafted-pour", // <- replace with exact repo URL
+    liveUrl: "https://the-crafted-pour.vercel.app/", // <- add when deployed
   },
   {
     id: 2,
     title: "Student Result Portal",
     description:
       "A full-stack student result management system that allows institutions to publish results and students to securely view their academic performance.",
-    technologies: ["React", "Node.js", "MongoDB", "Express.js", "Tailwind CSS"],
+    technologies: ["React", "Node.js", "MongoDB", "Redis", "Tailwind CSS"],
     imagePath: "/images/project2.png",
-    githubUrl: "https://github.com/harshitcodex0/result-portal",   // <- replace with exact repo URL
+    githubUrl: "https://github.com/harshitcodex0/result-portal", // <- replace with exact repo URL
     liveUrl: "https://result-portal-tau.vercel.app/",
   },
   {
     id: 3,
-    title: "ZenCode",                          // <- update title when ready
+    title: "ZenCode", // <- update title when ready
     description:
-      "Coming soon — placeholder for the third showcase project.",
+      "ZenCode is a coding practice platform inspired by LeetCode, where users can solve programming problems, improve problem-solving skills, and prepare for technical interviews.",
     technologies: [],
     imagePath: "/images/project3.png",
-    githubUrl: "https://github.com/harshitcodex0",
+    githubUrl: "https://github.com/harshitcodex0/zencode",
     liveUrl: null,
   },
 ];
