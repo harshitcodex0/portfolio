@@ -63,7 +63,13 @@ export const PROJECTS = [
     title: "The Crafted Pour",
     description:
       "A liquor and cocktail discovery platform where users can explore premium spirits, learn how to craft classic cocktails, and create their own unique cocktail recipes.",
-    technologies: ["React", "Node.js", "ffmpeg(Video Smoothening)", "Tailwind CSS","GSAP"],
+    technologies: [
+      "React",
+      "Node.js",
+      "ffmpeg(Video Smoothening)",
+      "Tailwind CSS",
+      "GSAP",
+    ],
     imagePath: "/images/project1.png",
     githubUrl: "https://github.com/harshitcodex0/the-crafted-pour", // <- replace with exact repo URL
     liveUrl: "https://the-crafted-pour.vercel.app/", // <- add when deployed
@@ -86,7 +92,7 @@ export const PROJECTS = [
     technologies: [],
     imagePath: "/images/project3.png",
     githubUrl: "https://github.com/harshitcodex0/zencode",
-    liveUrl: null,
+    liveUrl: "https://zencode-teal.vercel.app/",
   },
 ];
 
