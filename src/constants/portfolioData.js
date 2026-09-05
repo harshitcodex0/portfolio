@@ -89,7 +89,7 @@ export const PROJECTS = [
     title: "ZenCode", // <- update title when ready
     description:
       "ZenCode is a coding practice platform inspired by LeetCode, where users can solve programming problems, improve problem-solving skills, and prepare for technical interviews.",
-    technologies: [],
+    technologies: ["TailwindCSS", "Judge0", "Monaco/Editor", "NextJS", "NeonDB", "PrismaORM", "OpenRouter"],
     imagePath: "/images/project3.png",
     githubUrl: "https://github.com/harshitcodex0/zencode",
     liveUrl: "https://zencode-teal.vercel.app/",
